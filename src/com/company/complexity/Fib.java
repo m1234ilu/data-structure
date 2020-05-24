@@ -1,6 +1,6 @@
-package com.company.TimeComplexity;
+package com.company.complexity;
 
-import com.company.utils.Times;
+import com.company.util.Times;
 
 /**
  * 斐波那契数列

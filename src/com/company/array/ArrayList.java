@@ -1,5 +1,6 @@
-package com.company.DydamicArray;
+package com.company.array;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 /**
@@ -8,11 +9,14 @@ import java.util.Arrays;
  * @author zycstart
  * @create 2020-05-23 15:44
  */
-public class ArrayList {
+public class ArrayList<E> implements Serializable {
+    private static final long serialVersionUID = -5721508243584274382L;
+
     /**
      * 默认初始容量
      */
     private static final int DEFAULT_CAPACITY = 10;
+
     /**
      * 元素的数量
      */
@@ -21,7 +25,7 @@ public class ArrayList {
     /**
      * 所有元素
      */
-    private int[] elements;
+    private E[] elements;
 
     /**
      * 指定容量构造方法，和源码实现上有区别，源码是判断初始容量是否大于0，大于0 初始化，小于0抛异常，等于0初始空object数组
@@ -30,14 +34,14 @@ public class ArrayList {
      */
     public ArrayList(int initialCapacity) {
         if (initialCapacity > DEFAULT_CAPACITY) {
-            this.elements = new int[initialCapacity];
+            this.elements = (E[])new Object[initialCapacity];
         } else if (initialCapacity <= DEFAULT_CAPACITY) {
-            this.elements = new int[DEFAULT_CAPACITY];
+            this.elements = (E[])new Object[DEFAULT_CAPACITY];
         }
     }
 
     public ArrayList() {
-        this.elements = new int[DEFAULT_CAPACITY];
+        this.elements = (E[])new Object[DEFAULT_CAPACITY];
 //        this(DEFAULT_CAPACITY);
     }
 
@@ -47,13 +51,13 @@ public class ArrayList {
      * @param element
      * @return
      */
-    public boolean add(int element) {
+    public boolean add(E element) {
         ensureCapacityInternal(size + 1);
         elements[size++] = element;
         return true;
     }
 
-    public void add(int index, int element) {
+    public void add(int index, E element) {
         rangeCheckForAdd(index);
         ensureCapacityInternal(size + 1);
         for (int i = size; i > index; i--) {
@@ -69,11 +73,22 @@ public class ArrayList {
         }
     }
 
+    /**
+     * 保证要有minCapacity容量
+     *
+     * @param minCapacity 最小容量
+     */
     private void ensureCapacityInternal(int minCapacity) {
         int oldCapacity = elements.length;
         if (minCapacity > oldCapacity) {
             int newCapacity = oldCapacity + (oldCapacity >> 1);
             elements = Arrays.copyOf(elements, newCapacity);
+//            int[] newCapacityElements = new int[newCapacity];
+//            for (int i = 0; i < elements.length; i++) {
+//                newCapacityElements[i] = elements[i];
+//            }
+//            elements = newCapacityElements;
+            System.out.println("旧容量：" + oldCapacity + "，扩容为：" + newCapacity);
         }
     }
 
@@ -124,7 +139,7 @@ public class ArrayList {
      * @param element
      * @return
      */
-    public int indexOf(int element) {
+    public int indexOf(E element) {
         for (int i = 0; i < size; i++) {
             if (element == elements[i]) {
                 return i;
@@ -139,7 +154,7 @@ public class ArrayList {
      * @param element
      * @return
      */
-    public boolean contains(int element) {
+    public boolean contains(E element) {
         return indexOf(element) >= 0;
     }
 
@@ -149,7 +164,7 @@ public class ArrayList {
      * @param index
      * @return
      */
-    public int get(int index) {
+    public E get(int index) {
         rangeCheck(index);
         return elements[index];
     }
@@ -160,9 +175,9 @@ public class ArrayList {
      * @param index 元素下标
      * @return 被删除的元素
      */
-    public int remove(int index) {
+    public E remove(int index) {
         rangeCheck(index);
-        int oldValue = elements[index];
+        E oldValue = elements[index];
         for (int i = index; i < size; i++) {
             elements[i] = elements[i + 1];
         }
@@ -178,10 +193,10 @@ public class ArrayList {
      * @param element
      * @return 返回原先位置的元素
      */
-    public int set(int index, int element) {
+    public E set(int index, E element) {
         rangeCheck(index);
 
-        int oldElement = elements[index];
+        E oldElement = elements[index];
         elements[index] = element;
         return oldElement;
     }

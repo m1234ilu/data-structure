@@ -1,6 +1,4 @@
-package com.company.DydamicArray;
-
-import java.util.List;
+package com.company.array;
 
 /**
  * @author zycstart
@@ -10,7 +8,7 @@ public class Main {
     //    List list =  new ArrayList();
     public static void main(String[] args) {
         //new 是向堆空间申请内存
-        ArrayList list = new ArrayList();
+        ArrayList<Integer> list = new ArrayList<>();
         list.add(0);
         list.add(1);
         list.add(2);
@@ -31,5 +29,13 @@ public class Main {
         System.out.println("获取索引为0的元素："+list.get(0));
         System.out.println("获取索引为1的元素："+list.get(1));
         System.out.println(list);
+        for (int i = 0; i < 50 ; i++) {
+            list.add(i);
+        }
+
+        ArrayList<Person> persons = new ArrayList<>();
+        persons.add(new Person(10,"小明"));
+        persons.add(new Person(11,"小刚"));
+        System.out.println(persons);
     }
 }

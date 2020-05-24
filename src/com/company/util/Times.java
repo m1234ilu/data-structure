@@ -1,12 +1,14 @@
-package com.company.utils;
+package com.company.util;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
-
+/**
+ * 计时工具类
+ */
 public class Times {
     private static final SimpleDateFormat FMT = new SimpleDateFormat("HH:mm:ss.SSS");
-
 
     public interface Task {
         /**

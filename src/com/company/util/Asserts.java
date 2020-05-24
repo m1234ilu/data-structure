@@ -1,4 +1,4 @@
-package com.company.utils;
+package com.company.util;
 
 /**
  * 断言

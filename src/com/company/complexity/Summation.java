@@ -1,4 +1,4 @@
-package com.company.TimeComplexity;
+package com.company.complexity;
 
 /**
  * 两种求和时间复杂度比较

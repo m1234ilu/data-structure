@@ -1,4 +1,4 @@
-package com.company.DydamicArray;
+package com.company.array;
 
 /**
  * @author zycstart
