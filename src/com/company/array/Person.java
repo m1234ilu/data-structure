@@ -19,7 +19,7 @@ public class Person {
     @Override
     protected void finalize() throws Throwable {
         super.finalize();
-
+        //对象销毁前执行
         System.out.println("Person - finalize");
     }
 

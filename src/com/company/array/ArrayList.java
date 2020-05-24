@@ -34,14 +34,14 @@ public class ArrayList<E> implements Serializable {
      */
     public ArrayList(int initialCapacity) {
         if (initialCapacity > DEFAULT_CAPACITY) {
-            this.elements = (E[])new Object[initialCapacity];
+            this.elements = (E[]) new Object[initialCapacity];
         } else if (initialCapacity <= DEFAULT_CAPACITY) {
-            this.elements = (E[])new Object[DEFAULT_CAPACITY];
+            this.elements = (E[]) new Object[DEFAULT_CAPACITY];
         }
     }
 
     public ArrayList() {
-        this.elements = (E[])new Object[DEFAULT_CAPACITY];
+        this.elements = (E[]) new Object[DEFAULT_CAPACITY];
 //        this(DEFAULT_CAPACITY);
     }
 
@@ -92,10 +92,13 @@ public class ArrayList<E> implements Serializable {
         }
     }
 
+    /**
+     * 清除所有元素
+     */
     public void clear() {
-        //  for (int i = 0; i < size; i++) {
-        //      elements[i] = 0;
-        //    }
+        for (int i = 0; i < size; i++) {
+            elements[i] = null;
+        }
         //只要size为0，就拿不到元素，通过get和set无法访问到。对使用者来说，就是清除了，即语义正确，不用关心接口内部实现
         size = 0;
     }
@@ -140,9 +143,20 @@ public class ArrayList<E> implements Serializable {
      * @return
      */
     public int indexOf(E element) {
-        for (int i = 0; i < size; i++) {
-            if (element == elements[i]) {
-                return i;
+        //注意对象可能为空
+        if (element == null) {
+            for (int i = 0; i < size; i++) {
+                if (elements[i] == null) {
+                    return i;
+                }
+            }
+        } else {
+            for (int i = 0; i < size; i++) {
+                //如果对象没有重写equals方法，默认是比较内存地址
+                //Integer内部重写equals方法，比较的是值，不是地址
+                if (element.equals(elements[i])) {
+                    return i;
+                }
             }
         }
         return -1;
@@ -161,7 +175,7 @@ public class ArrayList<E> implements Serializable {
     /**
      * 获取集合中指定位置的元素
      *
-     * @param index
+     * @param index 索引
      * @return
      */
     public E get(int index) {
@@ -181,10 +195,20 @@ public class ArrayList<E> implements Serializable {
         for (int i = index; i < size; i++) {
             elements[i] = elements[i + 1];
         }
-        size--;
+        //提醒垃圾回收器工作
+        elements[--size] = null;
         return oldValue;
     }
 
+    /**
+     * 移除首次出现的元素
+     *
+     * @param element   元素
+     * @return
+     */
+    public void remove(E element) {
+        remove(indexOf(element));
+    }
 
     /**
      * 替换指定位置的元素并返回原先的元素
